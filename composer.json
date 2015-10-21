@@ -1,0 +1,9 @@
+{
+    "description": "StudioForty9 Simple Checkout module",
+    "name": "studioforty9/checkout",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "type": "magento-module",
+    "version": "dev-master"
+}

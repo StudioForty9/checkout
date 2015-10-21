@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * StudioForty9 Checkout
+ *
+ * @category  Studioforty9
+ * @package   Studioforty9_Checkout
+ * @author    StudioForty9 <info@studioforty9.com>
+ * @copyright 2015 StudioForty9 (http://www.studioforty9.com)
+ * @license   https://github.com/studioforty9/checkout/blob/master/LICENCE BSD
+ * @version   1.0.0
+ * @link      https://github.com/studioforty9/checkout
+ */
+-->
+<config>
+    <modules>
+        <Studioforty9_Checkout>
+            <version>1.0.0</version>
+        </Studioforty9_Checkout>
+    </modules>
+    <frontend>
+        <routers>
+            <studioforty9_checkout>
+                <use>standard</use>
+                <args>
+                    <module>Studioforty9_Checkout</module>
+                    <frontName>simplecheckoutlogin</frontName>
+                </args>
+            </studioforty9_checkout>
+        </routers>
+        <layout>
+            <updates>
+                <studioforty9_checkout>
+                    <file>studioforty9_checkout.xml</file>
+                </studioforty9_checkout>
+            </updates>
+        </layout>
+    </frontend>   
+    <global>
+        <blocks>
+            <studioforty9_checkout>
+                <class>Studioforty9_Checkout_Block</class>
+            </studioforty9_checkout>
+            <checkout>
+                <rewrite>
+                    <onepage_login>Studioforty9_Checkout_Block_Onepage_Login</onepage_login>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <helpers>
+            <studioforty9_checkout>
+                <class>Studioforty9_Checkout_Helper</class>
+            </studioforty9_checkout>
+        </helpers>
+    </global>
+    <default>
+        <checkout>
+            <studioforty9_checkout>
+                <active>0</active>
+            </studioforty9_checkout>
+        </checkout>
+    </default>
+</config>

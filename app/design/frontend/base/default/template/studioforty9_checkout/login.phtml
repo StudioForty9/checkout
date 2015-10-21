@@ -1,0 +1,113 @@
+<?php
+/**
+ * StudioForty9 Checkout
+ *
+ * @category  Studioforty9
+ * @package   Studioforty9_Checkout
+ * @author    StudioForty9 <info@studioforty9.com>
+ * @copyright 2015 StudioForty9 (http://www.studioforty9.com)
+ * @license   https://github.com/studioforty9/checkout/blob/master/LICENCE BSD
+ * @version   1.0.0
+ * @link      https://github.com/studioforty9/checkout
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<div id="check-account">
+    <form id="email-form">
+        <fieldset>
+            <ul class="form-list">
+                <li>
+                    <label for="check-email" class="required"><?php echo $this->__('Please enter your Email Address') ?></label>
+                    <div class="input-box">
+                        <input type="text" class="input-text required-entry validate-email" id="check-email" name="check-email" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
+                    </div>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+    <div class="buttons-set">
+        <button type="submit" class="button" onclick="checkEmail(this);"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+        <span id="checking" style="display: none;">loading...</span>
+    </div>
+</div>
+
+<div style="display: none;" id="has-account">
+    <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
+        <fieldset>
+            <?php echo $this->getBlockHtml('formkey'); ?>
+            <ul class="form-list">
+                <input type="hidden" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
+                <li>
+                    <label for="login-password" class="required"><?php echo $this->__('Welcome back! Please enter your Password') ?></label>
+                    <div class="input-box">
+                        <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
+                    </div>
+                </li>
+                <?php echo $this->getChildHtml('form.additional.info'); ?>
+            </ul>
+        </fieldset>
+    </form>
+    <div class="buttons-set">
+        <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
+        <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+        <button class="button" onclick="$('has-account').hide(); $('check-account').show();"><span><span><?php echo $this->__('Back') ?></span></span></button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var loginForm = new VarienForm('login-form', true);
+    
+    $('login-email').observe('keypress', bindLoginPost);
+    $('login-password').observe('keypress', bindLoginPost);
+
+    function bindLoginPost(evt) {
+        if (evt.keyCode == Event.KEY_RETURN) {
+            onepageLogin();
+            Event.stop(evt);
+        }
+    }
+    
+    function onepageLogin(button) {
+        if (loginForm.validator && loginForm.validator.validate()) {
+            button.disabled = true;
+            loginForm.submit();
+        }
+    }
+
+    var emailForm = new VarienForm('email-form', true);
+    $('check-email').observe('keypress', bindEmailPost);
+    function bindEmailPost(evt) {
+        if (evt.keyCode == Event.KEY_RETURN) {
+            checkEmail();
+            Event.stop(evt);
+        }
+    }
+    
+    function checkEmail(button) {
+        if (emailForm.validator && emailForm.validator.validate()) {
+            $('checking').show();
+            new Ajax.Request('/simplecheckoutlogin/checkout/user/', {
+                method:'post',
+                parameters: {
+                    email: $('check-email').value
+                },
+                onSuccess: function(data) {
+                    $('checking').hide();
+                    if (data.responseText == 1) {
+                        $("login-email").value = $("check-email").value;
+                        $("check-account").hide();
+                        $("has-account").show();
+                        $("login-password").focus();
+                    } else {
+                        $("billing:email").value = $("check-email").value;
+                        checkout.gotoSection('billing', true);
+                        $("register-customer-password").hide();
+                    }
+                }
+            });
+        }
+    }
+    //]]>
+</script>

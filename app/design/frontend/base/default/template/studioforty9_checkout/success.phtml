@@ -1,0 +1,75 @@
+<?php
+/**
+ * StudioForty9 Checkout
+ *
+ * @category  Studioforty9
+ * @package   Studioforty9_Checkout
+ * @author    StudioForty9 <info@studioforty9.com>
+ * @copyright 2015 StudioForty9 (http://www.studioforty9.com)
+ * @license   https://github.com/studioforty9/checkout/blob/master/LICENCE BSD
+ * @version   1.0.0
+ * @link      https://github.com/studioforty9/checkout
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Your order has been received.') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<h2 class="sub-title"><?php echo $this->__('Thank you for your purchase!') ?></h2>
+
+<?php if ($this->getOrderId()):?>
+<?php if ($this->getCanViewOrder()) :?>
+    <p><?php echo $this->__('Your order # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getViewOrderUrl()), $this->escapeHtml($this->getOrderId()))) ?></p>
+<?php  else :?>
+    <p><?php echo $this->__('Your order # is: %s.', $this->escapeHtml($this->getOrderId())) ?></p>
+<?php endif;?>
+    <p><?php echo $this->__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+<?php if ($this->getCanViewOrder() && $this->getCanPrintOrder()) :?>
+    <p>
+        <?php echo $this->__('Click <a href="%s" onclick="this.target=\'_blank\'">here to print</a> a copy of your order confirmation.', $this->getPrintUrl()) ?>
+        <?php echo $this->getChildHtml() ?>
+    </p>
+<?php endif;?>
+<?php endif;?>
+
+<?php if ($this->getAgreementRefId()): ?>
+    <p><?php echo $this->__('Your billing agreement # is: %s.', sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getAgreementUrl()), $this->escapeHtml($this->getAgreementRefId())))?></p>
+<?php endif;?>
+
+<?php if ($profiles = $this->getRecurringProfiles()):?>
+<p><?php echo $this->__('Your recurring payment profiles:'); ?></p>
+<ul class="disc">
+<?php foreach($profiles as $profile):?>
+<?php $profileIdHtml = ($this->getCanViewProfiles() ? sprintf('<a href="%s">%s</a>', $this->escapeHtml($this->getProfileUrl($profile)), $this->escapeHtml($this->getObjectData($profile, 'reference_id'))) : $this->escapeHtml($this->getObjectData($profile, 'reference_id')));?>
+    <li><?php echo $this->__('Payment profile # %s: "%s".', $profileIdHtml, $this->escapeHtml($this->getObjectData($profile, 'schedule_description')))?></li>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+
+<?php if(Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+    <div class="buttons-set">
+        <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+    </div>
+<?php else: ?>
+    <form id="checkout-create-account" method="post" action="<?php echo $this->getUrl('') ?>simplecheckoutlogin/checkout/registerGuest">
+        <h3><?php echo $this->__("Sign up to view your Order History and save your Address Book for future orders."); ?></h3>
+        <fieldset>
+            <input type="hidden" name="order_id" value="<?php echo $this->getOrderId() ?>" />
+            <div>
+                <label>Your Password</label>
+                <input type="password" id="password" name="password" />
+            </div>
+            <div class="buttons-set">
+                <button type="submit" class="button" title="<?php echo $this->__('Create Account') ?>"><?php echo $this->__('Create Account') ?></button>
+            </div>
+        </fieldset>
+    </form>
+    <script>
+        $("checkout-create-account").onsubmit = function () {
+            if($("password").value.length < 6 ) {
+                alert("Please enter a password of 6 characters or longer");
+                return false;
+            }
+        }
+    </script>
+<?php endif; ?>

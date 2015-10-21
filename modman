@@ -1,0 +1,6 @@
+app/code/community/Studioforty9/Checkout/                                       app/code/community/Studioforty9/Checkout/
+app/design/frontend/base/default/layout/studioforty9_checkout.xml               app/design/frontend/base/default/layout/studioforty9_checkout.xml
+app/design/frontend/base/default/template/studioforty9_checkout/login.phtml     app/design/frontend/base/default/template/studioforty9_checkout/login.phtml
+app/design/frontend/base/default/template/studioforty9_checkout/success.phtml   app/design/frontend/base/default/template/studioforty9_checkout/success.phtml
+app/etc/modules/Studioforty9_Checkout.xml                                       app/etc/modules/Studioforty9_Checkout.xml
+skin/frontend/base/default/css/simplecheckoutlogin.css                          skin/frontend/base/default/css/simplecheckoutlogin.css

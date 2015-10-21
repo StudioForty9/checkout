@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * StudioForty9 Checkout
+ *
+ * @category  Studioforty9
+ * @package   Studioforty9_Checkout
+ * @author    StudioForty9 <info@studioforty9.com>
+ * @copyright 2015 StudioForty9 (http://www.studioforty9.com)
+ * @license   https://github.com/studioforty9/checkout/blob/master/LICENCE BSD
+ * @version   1.0.0
+ * @link      https://github.com/studioforty9/checkout
+ */
+-->
+<layout version="0.1.0">
+    <checkout_onepage_index>
+        <reference name="root">
+            <action method="addBodyClass" ifconfig="checkout/studioforty9_checkout/active">
+                <classname>opc-has-progressed-from-login</classname>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem" ifconfig="checkout/studioforty9_checkout/active">
+                <type>skin_css</type>
+                <name>css/simplecheckoutlogin.css</name>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.login">
+            <action method="setTemplate" ifconfig="checkout/studioforty9_checkout/active">
+               <template>studioforty9_checkout/login.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_index>
+
+    <checkout_onepage_success>
+        <reference name="head">
+            <action method="addItem" ifconfig="checkout/studioforty9_checkout/active">
+                <type>skin_css</type>
+                <name>css/simplecheckoutlogin.css</name>
+            </action>
+        </reference>
+        <reference name="checkout.success">
+            <action method="setTemplate" ifconfig="checkout/studioforty9_checkout/active">
+                <template>studioforty9_checkout/success.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_success>
+</layout>
