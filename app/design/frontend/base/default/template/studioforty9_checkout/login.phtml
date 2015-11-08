@@ -17,7 +17,7 @@
     <form id="email-form">
         <fieldset>
             <ul class="form-list">
-                <li>
+                <li class="field">
                     <label for="check-email" class="required"><?php echo $this->__('Please enter your Email Address') ?></label>
                     <div class="input-box">
                         <input type="text" class="input-text required-entry validate-email" id="check-email" name="check-email" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
@@ -27,8 +27,10 @@
         </fieldset>
     </form>
     <div class="buttons-set">
-        <button type="submit" class="button" onclick="checkEmail(this);"><span><span><?php echo $this->__('Continue') ?></span></span></button>
-        <span id="checking" style="display: none;">loading...</span>
+        <button type="submit" class="button" onclick="emailForm.checkEmail(this);"><span><span><?php echo $this->__('Continue') ?></span></span></button>
+        <span class="please-wait" id="login-please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo $this->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo $this->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
+        </span>
     </div>
 </div>
 
@@ -38,11 +40,17 @@
             <?php echo $this->getBlockHtml('formkey'); ?>
             <ul class="form-list">
                 <input type="hidden" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
-                <li>
+                <li class="field">
                     <label for="login-password" class="required"><?php echo $this->__('Welcome back! Please enter your Password') ?></label>
                     <div class="input-box">
                         <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
                     </div>
+                </li>
+                <li class="field">
+                  <div class="simple-customer-exists">
+                    <span class="current-customer-message"><span class="icon"></span> <?php echo $this->__('Hi, You have an account with us, Welcome back!'); ?></span>
+                    <strong id="current-customer-email" class="current-customer-email"></strong>
+                  </div>
                 </li>
                 <?php echo $this->getChildHtml('form.additional.info'); ?>
             </ul>
@@ -50,64 +58,14 @@
     </form>
     <div class="buttons-set">
         <a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('Forgot your password?') ?></a>
-        <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
-        <button class="button" onclick="$('has-account').hide(); $('check-account').show();"><span><span><?php echo $this->__('Back') ?></span></span></button>
+        <button type="submit" class="button" onclick="loginForm.postLogin(this)" id="login-button"><span><span><?php echo $this->__('Login') ?></span></span></button>
+        <button class="button" onclick="loginForm.goBack(this)"><span><span><?php echo $this->__('Back') ?></span></span></button>
     </div>
 </div>
 
 <script type="text/javascript">
-    //<![CDATA[
-    var loginForm = new VarienForm('login-form', true);
-    
-    $('login-email').observe('keypress', bindLoginPost);
-    $('login-password').observe('keypress', bindLoginPost);
-
-    function bindLoginPost(evt) {
-        if (evt.keyCode == Event.KEY_RETURN) {
-            onepageLogin();
-            Event.stop(evt);
-        }
-    }
-    
-    function onepageLogin(button) {
-        if (loginForm.validator && loginForm.validator.validate()) {
-            button.disabled = true;
-            loginForm.submit();
-        }
-    }
-
-    var emailForm = new VarienForm('email-form', true);
-    $('check-email').observe('keypress', bindEmailPost);
-    function bindEmailPost(evt) {
-        if (evt.keyCode == Event.KEY_RETURN) {
-            checkEmail();
-            Event.stop(evt);
-        }
-    }
-    
-    function checkEmail(button) {
-        if (emailForm.validator && emailForm.validator.validate()) {
-            $('checking').show();
-            new Ajax.Request('/simplecheckoutlogin/checkout/user/', {
-                method:'post',
-                parameters: {
-                    email: $('check-email').value
-                },
-                onSuccess: function(data) {
-                    $('checking').hide();
-                    if (data.responseText == 1) {
-                        $("login-email").value = $("check-email").value;
-                        $("check-account").hide();
-                        $("has-account").show();
-                        $("login-password").focus();
-                    } else {
-                        $("billing:email").value = $("check-email").value;
-                        checkout.gotoSection('billing', true);
-                        $("register-customer-password").hide();
-                    }
-                }
-            });
-        }
-    }
-    //]]>
+//<![CDATA[
+  var emailForm = new EmailForm('email-form', true);
+  var loginForm = new LoginForm('login-form', true);
+//]]>
 </script>

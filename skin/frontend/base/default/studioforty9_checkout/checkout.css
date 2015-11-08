@@ -1,0 +1,253 @@
+/**
+ * StudioForty9 Checkout
+ *
+ * @category  Studioforty9
+ * @package   Studioforty9_Checkout
+ * @author    StudioForty9 <info@studioforty9.com>
+ * @copyright 2015 StudioForty9 (http://www.studioforty9.com)
+ * @license   https://github.com/studioforty9/checkout/blob/master/LICENCE BSD
+ * @version   1.0.0
+ * @link      https://github.com/studioforty9/checkout
+ */
+
+#check-account, #has-account {
+	margin: 10px 0 30px;
+}
+
+#checkout-create-account {
+	margin: 30px 0;
+}
+
+#checkout-create-account h4 {
+	margin-bottom: 15px;
+}
+
+#checkout-create-account #password {
+	margin: 5px;
+	width: 200px;
+}
+
+
+/** BILLING CSS **/
+.opc-has-progressed-from-login .opc li.section {
+  position: relative;
+}
+
+.opc-has-progressed-from-login .opc p.required {
+    position: absolute;
+    top: 13px;
+    right: 60px;
+}
+
+.opc-has-progressed-from-login .opc li.fields {
+  clear: both;
+  margin: 0;
+  width: 100%;
+}
+.opc-has-progressed-from-login .opc li.fields:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.opc-has-progressed-from-login .opc .field,
+.opc-has-progressed-from-login .opc .wide {
+  margin-bottom: 10px;
+  position: relative;
+  margin-right: 1%;
+}
+.opc-has-progressed-from-login .opc .field {
+  width: 49%;
+  float: left;
+}
+.opc-has-progressed-from-login .opc .wide {
+  clear: both;
+  width: 99%;
+}
+
+.opc-has-progressed-from-login .opc .field label,
+.opc-has-progressed-from-login .opc .wide label {
+  font-size: 12px !important;
+  opacity: 0.75;
+  position: absolute;
+  top: 0.75em;
+  left: 1.2em;
+}
+
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename-suffix .field.name-firstname,
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename-suffix .field.name-lastname {
+    width: 28% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename-suffix .field.name-prefix {
+    width: 12% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename-suffix .field.name-middlename {
+    width: 15% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename-suffix .field.name-suffix {
+    width: 12% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-middlename-suffix .field.name-firstname,
+.opc-has-progressed-from-login .opc .customer-name-middlename-suffix .field.name-lastname,
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename .field.name-firstname,
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename .field.name-lastname,
+.opc-has-progressed-from-login .opc .customer-name-prefix-suffix .field.name-firstname,
+.opc-has-progressed-from-login .opc .customer-name-prefix-suffix .field.name-lastname {
+    width: 32% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename .field.name-middlename,
+.opc-has-progressed-from-login .opc .customer-name-middlename-suffix .field.name-middlename {
+    width: 16% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-prefix-middlename  .field.name-prefix,
+.opc-has-progressed-from-login .opc .customer-name-middlename-suffix .field.name-suffix,
+.opc-has-progressed-from-login .opc .customer-name-prefix-suffix .field.name-prefix,
+.opc-has-progressed-from-login .opc .customer-name-prefix-suffix .field.name-suffix {
+    width: 16% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-middlename .field.name-firstname,
+.opc-has-progressed-from-login .opc .customer-name-middlename .field.name-lastname {
+    width: 39% !important;
+}
+.opc-has-progressed-from-login .opc .customer-name-middlename .field.name-middlename {
+    width: 19% !important;
+}
+
+.opc-has-progressed-from-login .opc .input-box {
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  display: block;
+  padding: 25px 15px 5px !important;
+  margin: 0;
+  transition: border-color .4s ease-out;
+}
+
+.opc-has-progressed-from-login .opc .input-box .input-text,
+.opc-has-progressed-from-login .opc .input-box select {
+  background-color: #fff;
+  border-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+.opc-has-progressed-from-login .opc .field .input-box .input-text,
+.opc-has-progressed-from-login .opc .field .input-box select {
+  max-width: 100%;
+  width: 365px;
+}
+.opc-has-progressed-from-login .opc .wide .input-box .input-text,
+.opc-has-progressed-from-login .opc .wide .input-box select {
+  max-width: 100%;
+  width: 100%;
+}
+.opc-has-progressed-from-login .opc .input-box select {
+  padding: 9px 0 5px;
+  line-height: 1.1em;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.opc-has-progressed-from-login .opc .input-box .input-text:focus,
+.opc-has-progressed-from-login .opc .input-box select:focus {
+  outline: none !important;
+}
+
+
+.opc-has-progressed-from-login .opc .customer-dob .dob-day, 
+.opc-has-progressed-from-login .opc .customer-dob .dob-month,
+.opc-has-progressed-from-login .opc .customer-dob .dob-year {
+  margin-left: 15px !important;
+  position: relative;
+}
+.opc-has-progressed-from-login .opc .customer-dob .dob-day, 
+.opc-has-progressed-from-login .opc .customer-dob .dob-month {
+  width: 25px;
+}
+.opc-has-progressed-from-login .opc .customer-dob .dob-year {
+  width: 50px;
+}
+.opc-has-progressed-from-login .opc .customer-dob label {
+  color: #999;
+  height: 9px;
+  left: auto;
+  right: -15px;
+  position: absolute;
+  text-align: right;
+  top: 7px;
+  width: 30px;
+  font-size: 9px !important;
+}
+.opc-has-progressed-from-login .opc .customer-dob label:before {
+  color: #999;
+  content: "/";
+  font-size: 16px;
+  left: 35px;
+  position: absolute;
+  top: -2px;
+}
+.opc-has-progressed-from-login .opc .customer-dob .dob-year label:before {
+  display: none;
+}
+
+.opc-has-progressed-from-login .opc .control {
+  clear: both;
+  display: block;
+  background: #fff;
+  border: none;
+  width: 100% !important;
+  float: none !important;
+  padding: 0 !important;
+}
+.opc-has-progressed-from-login .opc .control .radio,
+.opc-has-progressed-from-login .opc .control .checkbox {
+  margin-top: 22px;
+}
+.opc-has-progressed-from-login .opc .control label {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 19px 40px 19px !important;
+  width: 99%;
+}
+
+.opc-has-progressed-from-login .opc .validation-advice {
+    margin: 0;
+    color: #df280a;
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    top: 8px;
+    right: 15px;
+}
+
+.opc-has-progressed-from-login .opc .buttons-set button.button {
+  float: right;
+}
+
+.opc-has-progressed-from-login .field.simple-focus .input-box,
+.opc-has-progressed-from-login .wide.simple-focus .input-box {
+  border-color: #3399cc;
+  transition: border-color .4s ease-in;
+}
+
+.opc-has-progressed-from-login .opc .simple-customer-exists {
+  margin: 10px;
+}
+.opc-has-progressed-from-login .opc .simple-customer-exists .current-customer-message {
+  display: block;
+}
+.opc-has-progressed-from-login .opc .simple-customer-exists .current-customer-message .icon {
+  background-image: url(/skin/frontend/rwd/default/images/icon_sprite.png);
+  background-position: -46px -44px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  float: left;
+  height: 30px;
+  margin-right: 10px;
+  width: 30px;
+}
+.opc-has-progressed-from-login .opc .simple-customer-exists .current-customer-email {
+  display: block;
+  margin-left: 40px;
+}
+

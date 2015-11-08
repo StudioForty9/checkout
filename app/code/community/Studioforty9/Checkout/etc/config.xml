@@ -52,6 +52,11 @@
                 <class>Studioforty9_Checkout_Helper</class>
             </studioforty9_checkout>
         </helpers>
+        <models>
+            <studioforty9_checkout>
+                <class>Studioforty9_Checkout_Model</class>
+            </studioforty9_checkout>
+        </models>
     </global>
     <default>
         <checkout>

@@ -27,104 +27,43 @@ class Studioforty9_Checkout_CheckoutController extends Mage_Core_Controller_Fron
      */
 	public function registerGuestAction()
 	{
-		if ($this->getRequest()->isPost()) {
-            return;
+		if (!$this->getRequest()->isPost()) {
+            Mage::getSingleton('core/session')->addError('That action not allowed.');
+            return $this->_redirect('/');
         }
-        
-		$websiteId = Mage::app()->getWebsite()->getId();
-		$store = Mage::app()->getStore();
 
 		$orderId = Mage::getSingleton('checkout/session')->getLastOrderId(); 
 		$order = Mage::getModel('sales/order')->load($orderId);
-		
-		$shippingId = $shippingId = $order->getShippingAddress()->getId();
-		$shippingAddress = Mage::getModel('sales/order_address')->load($shippingId);
-		
-		$billingId = $shippingId = $order->getBillingAddress()->getId();
-		$billingAddress = Mage::getModel('sales/order_address')->load($billingId);
-
-		$customer = Mage::getModel('customer/customer');
-		$customer->setWebsiteId($websiteId)
-        	->setStore($store)
-            ->setFirstname($billingAddress->getFirstname())
-            ->setLastname($billingAddress->getLastname())
-            ->setEmail($order->getCustomerEmail())
-            ->setPassword($this->getRequest()->getPost('password'));
-
-        try {
-		    $customer->save();
-		}
-		catch (Exception $e) {
-		    Mage::getSingleton('core/session')->addError($e->getMessage());
-       		return Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl());
-		}
-
-       	$customerId = $customer->getId();
-       	$customerBillingAddress = Mage::getModel("customer/address");
-		$customerBillingAddress->setCustomerId($customerId)
-	        ->setFirstname($billingAddress->getFirstname())
-	        ->setLastname($billingAddress->getLastname())
-	        ->setCountryId($billingAddress->getCountryId())
-			->setRegionId($billingAddress->getRegionId()) 
-			->setRegion($billingAddress->getRegion()) 
-	        ->setPostcode($billingAddress->getPostCode())
-	        ->setCity($billingAddress->getCity())
-	        ->setTelephone($billingAddress->getTelephone())
-	        ->setFax($billingAddress->getFax())
-	        ->setCompany($billingAddress->getCompany())
-	        ->setStreet($billingAddress->getStreet())
-	        ->setIsDefaultBilling('1')
-	        ->setSaveInAddressBook('1');
-		
-		try {
-		    $customerBillingAddress->save();
-		}
-		catch (Exception $e) {
-		    Mage::getSingleton('core/session')->addError($e->getMessage());
-       		return Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl());
-		}
-
-       	$customerShippingAddress = Mage::getModel("customer/address");
-		$customerShippingAddress->setCustomerId($customerId)
-	        ->setFirstname($shippingAddress->getFirstname())
-	        ->setLastname($shippingAddress->getLastname())
-	        ->setCountryId($shippingAddress->getCountryId())
-			->setRegionId($shippingAddress->getRegionId()) 
-			->setRegion($shippingAddress->getRegion()) 
-	        ->setPostcode($shippingAddress->getPostCode())
-	        ->setCity($shippingAddress->getCity())
-	        ->setTelephone($shippingAddress->getTelephone())
-	        ->setFax($shippingAddress->getFax())
-	        ->setCompany($shippingAddress->getCompany())
-	        ->setStreet($shippingAddress->getStreet())
-	        ->setIsDefaultShipping('1')
-	        ->setSaveInAddressBook('1');
-		
-		try {
-		    $customerShippingAddress->save();
-		}
-		catch (Exception $e) {
-		    Mage::getSingleton('core/session')->addError($e->getMessage());
-       		return Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl());
-		}
-
-       	$order->setCustomerId($customerId);
+        $store = Mage::app()->getStore();
+        $customerBuilder = new Studioforty9_Checkout_Model_Customer_Builder($order, $store);
 
        	try {
-		   $order->save();
+            $customer = $customerBuilder->build(
+                $order->getCustomerEmail(),
+                $this->getRequest()->getPost('password')
+            );
+            $order->setCustomerId($customer->getId());
+            $order->save();
+            // Customer is created and associated to the last order, send a welcome email.
+            $customer->sendNewAccountEmail('registered', '', $store->getId());
 		}
 		catch (Exception $e) {
+            Mage::logException($e);
+            // TODO: Pull the error message out into configuration
 		    Mage::getSingleton('core/session')->addError($e->getMessage());
-       		return Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl());
+       		return $this->_redirect('/');
 		}
 
-       	Mage::getSingleton('core/session')->addSuccess('Thank you for signing up, you can now log in with the password you chose.');
-        $customer->sendNewAccountEmail('registered', '', $store->getId());
-       	return Mage::app()->getResponse()->setRedirect(Mage::getBaseUrl());
+        // TODO: Pull the success message out into configuration
+       	Mage::getSingleton('core/session')->addSuccess(
+            'Thank you for signing up, you can now log in with the password you chose.'
+        );
+        
+       	return $this->_redirect('/');
 	}
     
     /**
-     * Find a user.
+     * Find a customer by email address.
      *
      * @return Mage_Core_Controller_Response_Http
      */
@@ -139,7 +78,6 @@ class Studioforty9_Checkout_CheckoutController extends Mage_Core_Controller_Fron
 			$customer = Mage::getModel('customer/customer');
 			$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
 			$customer->loadByEmail($email);
-            
 			return $this->getResponse()->setBody((int) $customer->getId());
 		} catch (Exception $e) {
 			return $this->getResponse()->setBody($e->getMessage());
