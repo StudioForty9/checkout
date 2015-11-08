@@ -165,13 +165,13 @@ class Studioforty9_Checkout_Model_Customer_Builder
      */
     private function _createCustomer($email, $password)
     {
-		$customer = Mage::getModel('customer/customer');
-		$customer->setWebsiteId($this->getWebsiteId())
-        	->setStore($this->getStore())
-            ->setFirstname($this->_getOrderBillingAddress()->getFirstname())
-            ->setLastname($this->_getOrderBillingAddress()->getLastname())
-            ->setEmail($email)
-            ->setPassword($password);
+        $customer = Mage::getModel('customer/customer');
+        $customer->setWebsiteId($this->getWebsiteId())
+                 ->setStore($this->getStore())
+                 ->setFirstname($this->_getOrderBillingAddress()->getFirstname())
+                 ->setLastname($this->_getOrderBillingAddress()->getLastname())
+                 ->setEmail($email)
+                 ->setPassword($password);
         
         return $customer;
     }
@@ -186,20 +186,20 @@ class Studioforty9_Checkout_Model_Customer_Builder
     {
         $billingAddress = $this->_getOrderBillingAddress();
         $address = Mage::getModel("customer/address");
-		$address->setCustomerId($customerId)
-	        ->setFirstname($billingAddress->getFirstname())
-	        ->setLastname($billingAddress->getLastname())
-	        ->setCountryId($billingAddress->getCountryId())
-			->setRegionId($billingAddress->getRegionId()) 
-			->setRegion($billingAddress->getRegion()) 
-	        ->setPostcode($billingAddress->getPostCode())
-	        ->setCity($billingAddress->getCity())
-	        ->setTelephone($billingAddress->getTelephone())
-	        ->setFax($billingAddress->getFax())
-	        ->setCompany($billingAddress->getCompany())
-	        ->setStreet($billingAddress->getStreet())
-	        ->setIsDefaultBilling('1')
-	        ->setSaveInAddressBook('1');
+        $address->setCustomerId($customerId)
+                ->setFirstname($billingAddress->getFirstname())
+                ->setLastname($billingAddress->getLastname())
+                ->setCountryId($billingAddress->getCountryId())
+                ->setRegionId($billingAddress->getRegionId()) 
+                ->setRegion($billingAddress->getRegion()) 
+                ->setPostcode($billingAddress->getPostCode())
+                ->setCity($billingAddress->getCity())
+                ->setTelephone($billingAddress->getTelephone())
+                ->setFax($billingAddress->getFax())
+                ->setCompany($billingAddress->getCompany())
+                ->setStreet($billingAddress->getStreet())
+                ->setIsDefaultBilling('1')
+                ->setSaveInAddressBook('1');
         
         return $address;
     }
@@ -214,20 +214,20 @@ class Studioforty9_Checkout_Model_Customer_Builder
     {
         $shippingAddress = $this->_getOrderShippingAddress();
         $address = Mage::getModel("customer/address");
-		$address->setCustomerId($customerId)
-	        ->setFirstname($shippingAddress->getFirstname())
-	        ->setLastname($shippingAddress->getLastname())
-	        ->setCountryId($shippingAddress->getCountryId())
-			->setRegionId($shippingAddress->getRegionId()) 
-			->setRegion($shippingAddress->getRegion()) 
-	        ->setPostcode($shippingAddress->getPostCode())
-	        ->setCity($shippingAddress->getCity())
-	        ->setTelephone($shippingAddress->getTelephone())
-	        ->setFax($shippingAddress->getFax())
-	        ->setCompany($shippingAddress->getCompany())
-	        ->setStreet($shippingAddress->getStreet())
-	        ->setIsDefaultShipping('1')
-	        ->setSaveInAddressBook('1');
+        $address->setCustomerId($customerId)
+                ->setFirstname($shippingAddress->getFirstname())
+                ->setLastname($shippingAddress->getLastname())
+                ->setCountryId($shippingAddress->getCountryId())
+                ->setRegionId($shippingAddress->getRegionId()) 
+                ->setRegion($shippingAddress->getRegion()) 
+                ->setPostcode($shippingAddress->getPostCode())
+                ->setCity($shippingAddress->getCity())
+                ->setTelephone($shippingAddress->getTelephone())
+                ->setFax($shippingAddress->getFax())
+                ->setCompany($shippingAddress->getCompany())
+                ->setStreet($shippingAddress->getStreet())
+                ->setIsDefaultShipping('1')
+                ->setSaveInAddressBook('1');
         
         return $address;
     }
@@ -241,10 +241,11 @@ class Studioforty9_Checkout_Model_Customer_Builder
     private function _getOrderBillingAddress()
     {
         if (! $this->_orderBillingAddress) {
-    		$this->_orderBillingAddress = Mage::getModel('sales/order_address')
-                 ->load($this->getOrder()->getBillingAddress()->getId());
+            $this->_orderBillingAddress = Mage::getModel('sales/order_address')->load(
+                $this->getOrder()->getBillingAddress()->getId()
+            );
         }
-        
+
         return $this->_orderBillingAddress;
     }
     
@@ -256,10 +257,11 @@ class Studioforty9_Checkout_Model_Customer_Builder
     private function _getOrderShippingAddress()
     {
         if (! $this->_orderShippingAddress) {
-    		$this->_orderShippingAddress = Mage::getModel('sales/order_address')
-                 ->load($this->getOrder()->getBillingAddress()->getId());
+            $this->_orderShippingAddress = Mage::getModel('sales/order_address')->load(
+                $this->getOrder()->getBillingAddress()->getId()
+            );
         }
-        
+
         return $this->_orderShippingAddress;
     }
 }
