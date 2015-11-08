@@ -25,19 +25,19 @@ class Studioforty9_Checkout_CheckoutController extends Mage_Core_Controller_Fron
      *
      * @return Mage_Core_Controller_Response_Http
      */
-	public function registerGuestAction()
-	{
-		if (!$this->getRequest()->isPost()) {
+    public function registerGuestAction()
+    {
+        if (!$this->getRequest()->isPost()) {
             Mage::getSingleton('core/session')->addError('That action not allowed.');
             return $this->_redirect('/');
         }
 
-		$orderId = Mage::getSingleton('checkout/session')->getLastOrderId(); 
-		$order = Mage::getModel('sales/order')->load($orderId);
+        $orderId = Mage::getSingleton('checkout/session')->getLastOrderId(); 
+        $order = Mage::getModel('sales/order')->load($orderId);
         $store = Mage::app()->getStore();
         $customerBuilder = new Studioforty9_Checkout_Model_Customer_Builder($order, $store);
 
-       	try {
+        try {
             $customer = $customerBuilder->build(
                 $order->getCustomerEmail(),
                 $this->getRequest()->getPost('password')
@@ -46,41 +46,41 @@ class Studioforty9_Checkout_CheckoutController extends Mage_Core_Controller_Fron
             $order->save();
             // Customer is created and associated to the last order, send a welcome email.
             $customer->sendNewAccountEmail('registered', '', $store->getId());
-		}
-		catch (Exception $e) {
+        }
+        catch (Exception $e) {
             Mage::logException($e);
             // TODO: Pull the error message out into configuration
-		    Mage::getSingleton('core/session')->addError($e->getMessage());
-       		return $this->_redirect('/');
-		}
+            Mage::getSingleton('core/session')->addError($e->getMessage());
+            return $this->_redirect('/');
+        }
 
         // TODO: Pull the success message out into configuration
-       	Mage::getSingleton('core/session')->addSuccess(
+           Mage::getSingleton('core/session')->addSuccess(
             'Thank you for signing up, you can now log in with the password you chose.'
         );
         
-       	return $this->_redirect('/');
-	}
+        return $this->_redirect('/');
+    }
     
     /**
      * Find a customer by email address.
      *
      * @return Mage_Core_Controller_Response_Http
      */
-	public function userAction()
+    public function userAction()
     {
-		if (!$this->getRequest()->isPost()) {
-			return $this->getResponse()->setBody(0);
-		}
+        if (!$this->getRequest()->isPost()) {
+            return $this->getResponse()->setBody(0);
+        }
         
-		try {
-			$email = $this->getRequest()->getPost('email');
-			$customer = Mage::getModel('customer/customer');
-			$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
-			$customer->loadByEmail($email);
-			return $this->getResponse()->setBody((int) $customer->getId());
-		} catch (Exception $e) {
-			return $this->getResponse()->setBody($e->getMessage());
-		}
-	}
+        try {
+            $email = $this->getRequest()->getPost('email');
+            $customer = Mage::getModel('customer/customer');
+            $customer->setWebsiteId(Mage::app()->getWebsite()->getId());
+            $customer->loadByEmail($email);
+            return $this->getResponse()->setBody((int) $customer->getId());
+        } catch (Exception $e) {
+            return $this->getResponse()->setBody($e->getMessage());
+        }
+    }
 }
