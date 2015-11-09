@@ -258,7 +258,7 @@ class Studioforty9_Checkout_Model_Customer_Builder
     {
         if (! $this->_orderShippingAddress) {
             $this->_orderShippingAddress = Mage::getModel('sales/order_address')->load(
-                $this->getOrder()->getBillingAddress()->getId()
+                $this->getOrder()->getShippingAddress()->getId()
             );
         }
 
