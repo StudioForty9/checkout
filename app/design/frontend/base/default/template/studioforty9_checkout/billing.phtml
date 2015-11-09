@@ -214,21 +214,6 @@
 </form>
 <script type="text/javascript">
 //<![CDATA[
-    var SimpleForm = Class.create(VarienForm, {
-        initialize: function($super, formId, firstFieldFocus) {
-          $super(formId, firstFieldFocus);
-          $$('.opc .input-text, .opc select').invoke('observe', 'focus', this.onInputTextFocus.bind(this));
-          $$('.opc .input-text, .opc select').invoke('observe', 'blur', this.onInputTextBlur.bind(this));
-        },
-        onInputTextFocus: function(evt) {
-          var element = Event.element(evt);
-          element.up(1).addClassName('simple-focus');
-        },
-        onInputTextBlur: function(evt) {
-          var element = Event.element(evt);
-          element.up(1).removeClassName('simple-focus');
-        }
-    });
     var billing = new Billing('co-billing-form', '<?php echo $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?php echo $this->getUrl('checkout/onepage/saveBilling') ?>');
     var billingForm = new SimpleForm('co-billing-form', true);
 
