@@ -53,8 +53,9 @@
 .opc-has-progressed-from-login .opc .field,
 .opc-has-progressed-from-login .opc .wide {
   margin-bottom: 10px;
-  position: relative;
   margin-right: 1%;
+  outline: none !important;
+  position: relative;
 }
 .opc-has-progressed-from-login .opc .field {
   width: 49%;
@@ -72,6 +73,7 @@
   position: absolute;
   top: 0.75em;
   left: 1.2em;
+  right: 1.2em;
 }
 
 .opc-has-progressed-from-login .opc .customer-name-prefix-middlename-suffix .field.name-firstname,
@@ -114,12 +116,13 @@
 }
 
 .opc-has-progressed-from-login .opc .input-box {
-  border: 2px solid #ccc;
+  box-shadow: 0 0 0 1px #d9d9d9;
   border-radius: 3px;
   display: block;
-  padding: 25px 15px 5px !important;
+  padding: 22px 12px 2px !important;
   margin: 0;
-  transition: border-color .4s ease-out;
+  transition: all 0.2s ease-out;
+  outline: none !important;
 }
 
 .opc-has-progressed-from-login .opc .input-box .input-text,
@@ -128,6 +131,8 @@
   border-color: transparent;
   margin: 0;
   padding: 0;
+  height: auto !important;
+  outline: none !important;
 }
 .opc-has-progressed-from-login .opc .field .input-box .input-text,
 .opc-has-progressed-from-login .opc .field .input-box select {
@@ -140,7 +145,7 @@
   width: 100%;
 }
 .opc-has-progressed-from-login .opc .input-box select {
-  padding: 9px 0 5px;
+  padding: 3px 0 5px;
   line-height: 1.1em;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -199,14 +204,14 @@
 }
 .opc-has-progressed-from-login .opc .control .radio,
 .opc-has-progressed-from-login .opc .control .checkbox {
-  margin-top: 22px;
+  margin-top: 20px;
 }
 .opc-has-progressed-from-login .opc .control label {
   background-color: #fff;
-  border: 2px solid #ccc;
+  box-shadow: 0 0 0 1px #d9d9d9;
   border-radius: 3px;
   cursor: pointer;
-  padding: 19px 40px 19px !important;
+  padding: 14px 35px 12px !important;
   width: 99%;
 }
 
@@ -226,8 +231,8 @@
 
 .opc-has-progressed-from-login .field.simple-focus .input-box,
 .opc-has-progressed-from-login .wide.simple-focus .input-box {
-  border-color: #3399cc;
-  transition: border-color .4s ease-in;
+  transition: box-shadow .4s ease-in;
+  box-shadow: 0 0 0 2px #3399cc;
 }
 
 .opc-has-progressed-from-login .opc .simple-customer-exists {
