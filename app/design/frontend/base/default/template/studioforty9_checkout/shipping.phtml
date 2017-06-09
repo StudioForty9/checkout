@@ -44,7 +44,7 @@
                     <li class="wide">
                     <?php else: ?>
                     <li class="fields">
-                        <div class="field"> 
+                        <div class="field">
                     <?php endif; ?>
                             <label for="shipping:company"><?php echo $this->__('Company') ?></label>
                             <div class="input-box">
@@ -151,6 +151,7 @@
             <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Loading next step...')) ?>" class="v-middle" /> <?php echo $this->__('Loading next step...') ?>
         </span>
     </div>
+    <?php echo $this->getBlockHtml('formkey') ?>
 </form>
 <script type="text/javascript">
 //<![CDATA[
